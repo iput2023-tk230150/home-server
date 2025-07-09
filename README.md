@@ -39,17 +39,15 @@
 
 ## サービス概要
 
-Ubuntu Server 24.04で運用中のサービス構成です。すべてのサービスはTailscaleネットワーク内でHTTPS接続により提供されています。
+Ubuntu Server 24.04で運用中のサービス構成です。すべてのサービスはTailscaleネットワーク内でHTTPS接続により提供しています。
 
 ## 1. Nextcloud
 - **用途**: プライベートクラウドストレージ・ファイル同期
-- **アクセス**: `https://ubuntu-server.dab-ladon.ts.net/`
 - **構成**: Docker (Apache + MySQL)
-- **ポート**: 8081 (内部) → 443 (nginx経由)
 - **特徴**:
   - iPhoneからのHEIC写真アップロード対応
   - カスタムDockerfileでHEIF/HEICライブラリを追加
-  - ファイル同期・共有機能
+  - rclone
 
 ## 2. Zabbix
 - **用途**: サーバー監視・メトリクス収集
@@ -122,9 +120,3 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 - Grafanaのサブパス設定問題
 - HEIC変換時のCPU負荷
 - 大容量ファイルアップロード時の安定性
-
-## バックアップ対象
-- Nextcloudデータ: `./nextcloud_data`
-- MySQL データ: `./dbdata`
-- nginx設定: `/etc/nginx/sites-available/`
-- Minecraftワールド: `./paper`, `./mistgale`
