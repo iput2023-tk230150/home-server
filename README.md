@@ -39,7 +39,7 @@
 
 ## サービス概要
 
-Ubuntu Server 24.04で運用中のサービス構成です。すべてのサービスはTailscaleネットワーク内でHTTPS接続により提供しています。
+現在運用中のサービス。
 
 ## 1. Nextcloud
 - **用途**: プライベートクラウドストレージ・ファイル同期
@@ -47,11 +47,10 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 - **特徴**:
   - iPhoneからのHEIC写真アップロード対応
   - カスタムDockerfileでHEIF/HEICライブラリを追加
-  - rclone
+  - rcloneでファイル同期
 
 ## 2. Zabbix
 - **用途**: サーバー監視・メトリクス収集
-- **アクセス**: `https://ubuntu-server.dab-ladon.ts.net/zabbix/`
 - **構成**: nginx + PHP-FPM
 - **認証**: HTTPS必須
 - **機能**:
@@ -61,9 +60,7 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 
 ## 3. Grafana
 - **用途**: データ可視化・ダッシュボード
-- **アクセス**: `https://ubuntu-server.dab-ladon.ts.net/grafana/`
 - **構成**: nginx リバースプロキシ経由
-- **ポート**: 3000 (内部) → 443 (nginx経由)
 - **機能**:
   - メトリクス可視化
   - カスタムダッシュボード
@@ -73,9 +70,9 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 - **用途**: ゲームサーバー運用
 - **構成**: Docker Compose
 - **サービス**:
-  - **Paper Server**: 最新版Vanilla (ポート: 30066)
-  - **Mistgale Server**: 1.10.2版 (ポート: 49513)
-  - **Discord Bot**: Python製管理Bot
+  - **Paper Server**：Vanillaサーバ
+  - **Mistgale Server**：RPG風アドベンチャーの配布ワールド
+  - **Discord Bot**: Python製管理Bot（ステータス確認、起動、停止）
 
 ## ネットワーク構成
 
@@ -87,7 +84,6 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 ### アクセス制御
 - **対象**: Tailscaleネットワーク内のみ
 - **許可IP**: 
-  - 100.85.184.3 (クライアント)
   - 100.103.135.58 (サーバー)
   - 100.64.0.0/10 (Tailscaleネットワーク全体)
 
@@ -107,16 +103,3 @@ Ubuntu Server 24.04で運用中のサービス構成です。すべてのサー�
 - **Paper データ**: `./paper`
 - **Mistgale データ**: `./mistgale`
 - **設定ファイル**: `./opt`, `./discordsrv-config`
-
-## 運用状況
-
-### 稼働サービス
-- ✅ Nextcloud: 正常稼働
-- ✅ Zabbix: 正常稼働
-- ⚠️ Grafana: HTTPSアクセス時のリダイレクトループ問題あり
-- ✅ Minecraft: 2サーバー + Discord Bot 正常稼働
-
-### 主な課題
-- Grafanaのサブパス設定問題
-- HEIC変換時のCPU負荷
-- 大容量ファイルアップロード時の安定性
