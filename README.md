@@ -33,6 +33,5 @@
 - カードリーダー: RTS5229 PCI Express
 - 入力: Logitech USBレシーバー対応
 ## 運用構成
-- Docker: データディレクトリを RAID1 (/mnt/raid1/docker) に配置
 - SSH: Termius経由でリモート管理
 - VPN: Tailscaleネットワーク内で運用
